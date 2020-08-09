@@ -1,13 +1,16 @@
 package com.screenable.agora.ui.main.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.screenable.agora.R;
 import com.screenable.agora.config.Config;
@@ -36,6 +40,9 @@ public class Vision extends Fragment {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     PreviewView view;
+    FrameLayout scan_btn;
+    View rootView;
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,8 +52,9 @@ public class Vision extends Fragment {
 //        live audio and video broadcasts
 
 
-        final View rootView = inflater.inflate(R.layout.vision, container, false);
+        rootView = inflater.inflate(R.layout.vision, container, false);
         view = rootView.findViewById(R.id.previewView);
+
 
 
 
@@ -81,6 +89,7 @@ public class Vision extends Fragment {
             }
         }, ContextCompat.getMainExecutor(getContext()));
     }
+    @SuppressLint("ClickableViewAccessibility")
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         Preview preview = new Preview.Builder()
                 .build();
@@ -99,22 +108,44 @@ public class Vision extends Fragment {
             @Override
             public void execute(Runnable runnable) {
 
-                new BarcodeScanner(getActivity(), imageAnalysis).scan(view.getBitmap());
+                new BarcodeScanner(getActivity()).scan(view.getBitmap());
             }
         };
 
-        imageAnalysis.setAnalyzer(executor, new ImageAnalysis.Analyzer() {
+
+        scan_btn = rootView.findViewById(R.id.start_scan);
+//        scan_btn.setOnClickListener(null);
+        scan_btn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            @SuppressLint("ClickableViewAccessibility")
             @Override
-            public void analyze(@NonNull ImageProxy image) {
-                int rotationDegrees = image.getImageInfo().getRotationDegrees();
-                // insert your code here.
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.w(Config.APP_IDENT,motionEvent.getAction()+"ss");
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+//                    start scanner
+                    imageAnalysis.setAnalyzer(executor, new ImageAnalysis.Analyzer() {
+                        @Override
+                        public void analyze(@NonNull ImageProxy image) {
+                            int rotationDegrees = image.getImageInfo().getRotationDegrees();
+                            // insert your code here.
 
 
 
+                        }
+                    });
+
+                    Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) Vision.this, cameraSelector, imageAnalysis, preview);
+
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    imageAnalysis.clearAnalyzer();
+                    cameraProvider.unbindAll();
+
+                }
+                return false;
             }
-        });
 
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
+        });
     }
 
     @Override

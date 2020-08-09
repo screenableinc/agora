@@ -2,31 +2,37 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:padding="11dp">
+    android:layout_width="230dp"
+    android:layout_height="200dp"
+    android:layout_margin="5dp"
+    android:elevation="5dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="7dp">
 
     <LinearLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:clickable="false"
         android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            fresco:actualImageScaleType="centerInside"
+            android:layout_height="150dp"
+            android:scaleType="centerInside"
+            android:transitionName="product_image"
 
-            fresco:roundingBorderColor="#7A7A7A"
 
-            fresco:roundingBorderWidth="0.5dp" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".85"
-            android:padding="7dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="7dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +44,9 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textStyle="bold"
+                    android:transitionName="productname" />
 
                 <TextView
                     android:id="@+id/price"
@@ -47,22 +55,25 @@
                     android:text="TextView"
                     android:textColor="@color/colorAccent" />
             </LinearLayout>
+            <FrameLayout android:clipChildren="false" android:clipToPadding="false" android:id="@+id/like_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="wrap_content">
+                <ImageView
+                    android:id="@+id/like"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+
+
+                    app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+            </FrameLayout>
+
 
             <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/add_to_cart"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 app:srcCompat="@drawable/ic_baseline_add_shopping_cart_24" />
+
         </LinearLayout>
 
     </LinearLayout>

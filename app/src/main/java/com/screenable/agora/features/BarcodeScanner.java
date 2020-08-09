@@ -24,6 +24,7 @@ import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
+import com.screenable.agora.MainActivity;
 import com.screenable.agora.config.Config;
 import com.screenable.agora.ui.main.fragments.Search;
 
@@ -36,11 +37,11 @@ public class BarcodeScanner {
     BarcodeScannerOptions options;
     com.google.mlkit.vision.barcode.BarcodeScanner scanner;
     Activity context;
-    ImageAnalysis imageAnalysis;
 
-    public BarcodeScanner(Activity activity, ImageAnalysis analysis){
+
+    public BarcodeScanner(Activity activity){
         this.context = activity;
-        this.imageAnalysis = analysis;
+
         options = new BarcodeScannerOptions.Builder()
         .setBarcodeFormats(Barcode.FORMAT_AZTEC, Barcode.FORMAT_EAN_13, Barcode.FORMAT_EAN_8)
         .build();
@@ -96,9 +97,9 @@ public class BarcodeScanner {
                 context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        new Search.BarcodeSearch().execute(barcode.getRawValue());
-                        Toast.makeText(context, barcode.getRawValue(), Toast.LENGTH_LONG).show();
-                        imageAnalysis.clearAnalyzer();
+                        new Search.BarcodeSearch().execute(rawValue);
+
+
                     }
                 });
 

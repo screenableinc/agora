@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import static com.screenable.agora.helpers.Helpers.GenQueryString;
 
 public class Requests {
@@ -79,6 +81,7 @@ public class Requests {
                 "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
         conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
         conn.setConnectTimeout(5000);
+
 
 //        for (String cookie : this.cookies) {
 //            conn.addRequestProperty("Cookie", cookie.split(";", 1)[0]);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+
+
+        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+</FrameLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,19 +61,23 @@ public class TrendingProducts extends RecyclerView.Adapter<TrendingProducts.View
         TextView price;
         TextView vendor;
         SimpleDraweeView imageView;
+        ImageView add;
         public ViewHolder(View itemView){
             super(itemView);
             vendor = itemView.findViewById(R.id.vendor);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.product_name);
             imageView = itemView.findViewById(R.id.item_image);
+            add = itemView.findViewById(R.id.add_to_cart);
 
 
         }
 
         @Override
         public void onClick(View view) {
+            if(view.getId()==add.getId()){
 
+            }
         }
     }
 }

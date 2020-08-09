@@ -2,6 +2,7 @@ package com.screenable.agora.helpers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
@@ -9,16 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.screenable.agora.Login;
 import com.screenable.agora.config.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.security.acl.Permission;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.Callable;
 
 public class Helpers {
 public static String JSONify(HashMap<String, String> map) throws JSONException {
@@ -47,6 +51,12 @@ public static String priceFormat(String price){
     }
 
 }
+    public static boolean checkLogin(Context context){
+
+        Boolean loggedIn = context.getSharedPreferences(Config.userdata_SP_N,Context.MODE_PRIVATE).getBoolean("logggedIn",false);
+        return loggedIn;
+
+    }
 //public static String Price(String price){
 //    price=Float.parseFloat(price);
 //

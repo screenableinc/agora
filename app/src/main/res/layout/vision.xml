@@ -7,4 +7,15 @@
             android:layout_width="match_parent"
             android:id="@+id/previewView" />
 
+        <FrameLayout
+            android:id="@+id/start_scan"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="100dp"
+            android:alpha="0.5"
+            android:background="@drawable/scan_btn">
+
+        </FrameLayout>
+
 </FrameLayout>
