@@ -55,7 +55,7 @@
                 android:text="By "
                 android:textStyle="bold" />
 
-            <TextView
+            <com.screenable.agora.customviews.VendorTextView
                 android:id="@+id/vendor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

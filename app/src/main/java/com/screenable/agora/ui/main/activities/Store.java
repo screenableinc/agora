@@ -17,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Store extends AppCompatActivity {
     RecyclerView view;
-    String businessId;
+    String vendorId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,10 @@ public class Store extends AppCompatActivity {
         ImageView banner = findViewById(R.id.banner);
 
 
-        HashMap<String,String> data =(HashMap<String, String>) getIntent().getExtras().get("data");
-        businessId = data.get("businessId");
-        String logoUri = Config.businessLogo+"?businessId="+businessId;
-        String bannerUri = Config.businessbanner+"?businessId="+businessId;
+        vendorId = (String) getIntent().getExtras().get("vendorId");
+
+        String logoUri = Config.businessLogo+"?businessId="+vendorId;
+        String bannerUri = Config.businessbanner+"?businessId="+vendorId;
         Picasso.get().load(logoUri).into(logo);
         Picasso.get().load(bannerUri).into(banner);
     }

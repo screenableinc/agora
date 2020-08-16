@@ -6,6 +6,7 @@
     android:id="@+id/dra"
     android:isScrollContainer="false"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
 
     <FrameLayout android:layout_height="match_parent" android:layout_width="match_parent" android:isScrollContainer="false">
@@ -131,5 +132,9 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/drawerheader"
         android:fitsSystemWindows="true" />
+
+    <include
+        layout="@layout/add_cart_options"
+        tools:visibility="visible"></include>
 
 </androidx.drawerlayout.widget.DrawerLayout>
