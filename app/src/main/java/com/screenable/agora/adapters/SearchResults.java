@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+import android.renderscript.Script;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -21,18 +22,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.screenable.agora.R;
 import com.screenable.agora.config.Config;
+import com.screenable.agora.customviews.VariationOptionsLL;
 import com.screenable.agora.helpers.Helpers;
 import com.screenable.agora.ui.main.activities.Product;
 import com.screenable.agora.ui.main.fragments.Home;
+import com.screenable.agora.ui.main.fragments.Search;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder> {
     Context context;
     ArrayList<HashMap<String,String>> items;
     String which;
+    private ArrayList<HashMap<String,String>> selected;
     public SearchResults(Context context, ArrayList <HashMap<String,String>> items, String which){
         this.context = context;
         this.items = items;
@@ -89,6 +100,59 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
         animationView.playAnimation();
 
     }
+    private void filter(){
+
+    }
+    private void createAttributeCategories(JSONArray attrNames, LinearLayout attr_parent,JSONArray variations) throws JSONException{
+        for (int j = 0; j < attrNames.length(); j++) {
+            String attr=attrNames.getString(j);
+            if(!attr.toLowerCase().equals("qty")){
+//                        add to view
+                View view = LayoutInflater.from(context).inflate(R.layout.attribute_opts,null,false);
+                TextView attr_name = view.findViewById(R.id.attr_name);
+                VariationOptionsLL hr_ll = view.findViewById(R.id.attrs);
+                hr_ll.setTag(attr);
+                attr_name.setText("select "+attr);
+                attr_name.setAllCaps(true);
+//                        add actual attrs
+
+                attr_parent.addView(view);
+//                keep track of attibutes already added
+                ArrayList<String> attrlist = new ArrayList<String>();
+                for (int i = 0; i < variations.length(); i++) {
+                    JSONObject variation = variations.getJSONObject(i);
+                    String text = variation.getString(attr);
+                    if(!attrlist.contains(text)) {
+
+
+                        View attr_view = LayoutInflater.from(context).inflate(R.layout.option, hr_ll, false);
+                        ((TextView) attr_view.findViewById(R.id.attr)).setText(text);
+                        hr_ll.addView(attr_view);
+                        attrlist.add(text);
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    public void loadAttributes(View attributeView, HashMap<String, String> data){
+        ((TextView) attributeView.findViewById(R.id.product_name)).setText(data.get("productName"));
+        LinearLayout attr_parent = attributeView.findViewById(R.id.attr_list_parent);
+        try {
+
+            JSONObject attributes = new JSONObject(data.get("attributes"));
+            JSONArray variations = attributes.getJSONArray("variations");
+            JSONArray attrNames = attributes.getJSONArray("attrs");
+            createAttributeCategories(attrNames,attr_parent,variations);
+
+
+            Log.w(Config.APP_IDENT, data.toString());
+        }catch (JSONException e){
+            Log.w(Config.APP_IDENT, e.toString());
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
@@ -101,12 +165,40 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             parent = itemView.findViewById(R.id.parent);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.name);
             imageView = itemView.findViewById(R.id.item_image);
             add = itemView.findViewById(R.id.add_to_cart);
             likeParent=itemView.findViewById(R.id.like_parent);
+
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    add cart options to root view
+
+                    ViewGroup mine = (ViewGroup) view.getRootView();
+                    LayoutInflater layoutInflater = LayoutInflater.from(context);
+                    Log.w(Config.APP_IDENT,mine.getChildCount()+"kk");
+
+                    View cart= layoutInflater.inflate(R.layout.add_cart_options,null,false);
+                    if(mine.getChildCount()==3) {
+                        CircleImageView circleImageView = cart.findViewById(R.id.product_img);
+                        circleImageView.setImageDrawable(imageView.getDrawable());
+
+                        mine.addView(cart);
+
+
+//                    load attributes
+                        loadAttributes(cart, data);
+
+
+
+                        Log.w(Config.APP_IDENT, mine.toString());
+                    }
+                }
+            });
 
             likeParent.setOnClickListener(new View.OnClickListener() {
                 @Override

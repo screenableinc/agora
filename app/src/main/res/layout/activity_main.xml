@@ -124,7 +124,6 @@
 
     </FrameLayout>
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -133,8 +132,6 @@
         app:headerLayout="@layout/drawerheader"
         android:fitsSystemWindows="true" />
 
-    <include
-        layout="@layout/add_cart_options"
-        tools:visibility="visible"></include>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

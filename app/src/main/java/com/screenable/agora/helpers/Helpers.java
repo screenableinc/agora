@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.security.acl.Permission;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
@@ -51,6 +52,8 @@ public static String priceFormat(String price){
     }
 
 }
+
+
     public static boolean checkLogin(Context context){
 
         Boolean loggedIn = context.getSharedPreferences(Config.userdata_SP_N,Context.MODE_PRIVATE).getBoolean("logggedIn",false);
@@ -144,6 +147,11 @@ public static void permissions(@NonNull Fragment fragment, String[] permissions,
             }
         }
         return true;
+    }
+    public static void getRemainingOptions(HashMap<String,String> selected, ArrayList<HashMap<String,String>> options){
+        for (int i = 0; i < options.size(); i++) {
+            
+        }
     }
 
 }

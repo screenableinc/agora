@@ -252,7 +252,12 @@ public class Home extends Fragment {
                             public void onScrollChanged() {
                                 if (body.getChildAt(0).getBottom()
                                         <= (body.getHeight() + body.getScrollY())) {
-                                    new Additional(discovered.get(discovered.size()-1).get("timestamp"),discovered.size()).execute();
+                                    try {
+                                        new Additional(discovered.get(discovered.size()-1).get("timestamp"),discovered.size()).execute();
+
+                                    }catch (IndexOutOfBoundsException e){
+
+                                    }
                                     Log.w(Config.APP_IDENT, "happu");
                                     //scroll view is at bottom
                                 } else {
