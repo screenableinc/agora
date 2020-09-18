@@ -5,8 +5,8 @@ public class Config {
     public static String userdata_SP_N = "userdata";
     public static String API_access_SP_N = "apiInfo";
 //    links
-//    public static String address = "https://www.vendnbuy.com/";
-    public static String address ="http://192.168.10.12:4000/";
+    public static String address = "https://www.vendnbuy.com/";
+//    public static String address ="http://192.168.10.11:4000/";
     public static String loginLink = address + "users/login";
     public static String topBrands = address + "business/top";
     public static String search = address + "search";

@@ -65,11 +65,11 @@ public class Requests {
 
     }
     public JSONObject sendGET(String url, String[] parameters, String[] values) throws Exception {
-        HttpURLConnection conn;
+        HttpsURLConnection conn;
         String queryString = GenQueryString(parameters, values);
         URL obj = new URL(url+"/?"+queryString);
 
-        conn = (HttpURLConnection) obj.openConnection();
+        conn = (HttpsURLConnection) obj.openConnection();
 
 
         // Acts like a browser
@@ -88,7 +88,7 @@ public class Requests {
 //        }
 //        conn.setRequestProperty("Connection", "keep-alive");
         conn.setRequestProperty("Referer", url);
-        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 
 
 

@@ -73,7 +73,7 @@
                     android:orientation="vertical"
                     android:translationX="7dp">
 
-                    <com.screenable.agora.customviews.HorinSelect
+                    <com.screenable.selector.HorinSelect
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

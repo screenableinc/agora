@@ -9,10 +9,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.screenable.agora.R;
 
 public class VariationOptionsLL extends LinearLayout {
-    String selected;
+    String selected=null;
     String name;
     View currentlySelected;
 
@@ -47,11 +49,14 @@ public class VariationOptionsLL extends LinearLayout {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gmm_white));
 
     }
-    private void setSelectedView(View view){
+    public void setSelectedView(View view){
 //        remove background from current selected
         if(currentlySelected!=null){
             removeBG(currentlySelected);
         }
+        ViewGroup parent = (ViewGroup) view;
+
+        selected = ((TextView) parent.getChildAt(0)).getText().toString();
 
 //        selected = ((TextView) view).getText().toString();
 //        set currently selected to new view and add bg
@@ -59,19 +64,11 @@ public class VariationOptionsLL extends LinearLayout {
         addBG(view);
     }
 
-    @Override
-    public void onViewAdded(View child) {
-        super.onViewAdded(child);
-
-        try{
-            child.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setSelectedView(view);
-                }
-            });
-        }catch (Exception e){
-            throw e;
-        }
+    public String getSelected() {
+        return this.selected;
     }
+
+
+
+
 }

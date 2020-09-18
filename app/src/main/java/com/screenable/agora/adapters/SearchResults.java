@@ -11,11 +11,14 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,10 +42,17 @@ import java.util.Iterator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.screenable.agora.config.Config.APP_IDENT;
+
 public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder> {
     Context context;
     ArrayList<HashMap<String,String>> items;
     String which;
+    ArrayList <Integer> holders = new ArrayList<>();
+    JSONArray remainingCombinations = new JSONArray();
+    JSONArray attrNames;
+//    here, cart represents the dialogue to select variatnts
+    View cart;
     private ArrayList<HashMap<String,String>> selected;
     public SearchResults(Context context, ArrayList <HashMap<String,String>> items, String which){
         this.context = context;
@@ -100,10 +110,108 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
         animationView.playAnimation();
 
     }
-    private void filter(){
+    private void filter(VariationOptionsLL clicked,JSONArray variations, String attr) throws JSONException{
+//        when one attribute is clicked, filter through the data and figure out the unclicked items
+        String selectedAttr = clicked.getSelected();
+
+
+
+        for (int holder:
+             holders) {
+            VariationOptionsLL holder_ll = (VariationOptionsLL) cart.findViewById(holder);
+           if(holder_ll.getSelected()==null){
+//               reload attributes except this time with if clause
+               holder_ll.removeAllViews();
+               for (int i = 0; i < variations.length(); i++) {
+                   if(variations.getJSONObject(i).get(attr)==selectedAttr){
+                       remainingCombinations.put(variations.getJSONObject(i));
+                   }else {
+                       remainingCombinations.remove(i);
+                   }
+               }
+               loadCategoryOptions(holder_ll, remainingCombinations,attr,true);
+           }
+
+        }
+//        reload
+
+
 
     }
-    private void createAttributeCategories(JSONArray attrNames, LinearLayout attr_parent,JSONArray variations) throws JSONException{
+
+
+    private void loadCategoryOptions(VariationOptionsLL hr_ll, JSONArray variations, String attr, Boolean hasFilter) throws JSONException {
+        //                keep track of attibutes already added
+        ArrayList<String> attrlist = new ArrayList<String>();
+        if (!hasFilter) {
+            for (int i = 0; i < variations.length(); i++) {
+                JSONObject variation = variations.getJSONObject(i);
+                String text = variation.getString(attr);
+                FrameLayout attr_view = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.option, hr_ll, false);
+                if (!attrlist.contains(text)) {
+
+
+                    attr_view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                hr_ll.setSelectedView(view);
+                                filter(hr_ll, variations, attr);
+                                Log.w(APP_IDENT, "clidked");
+                            } catch (JSONException e) {
+                                Toast.makeText(context, "err", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    ((TextView) attr_view.findViewById(R.id.attr)).setText(text);
+                    hr_ll.addView(attr_view);
+                    attrlist.add(text);
+                }
+            }
+        } else {
+            Log.w(APP_IDENT, variations.toString());
+            for (int j = 0; j < attrNames.length(); j++) {
+
+                if(!attr.equals(attrNames.getString(j))) {
+
+
+                    for (int i = 0; i < variations.length(); i++) {
+                        JSONObject variation = variations.getJSONObject(i);
+                        String text = variation.getString(attrNames.getString(j));
+                        FrameLayout attr_view = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.option, hr_ll, false);
+
+
+                        if (!attrlist.contains(text)) {
+
+
+
+                            ((TextView) attr_view.findViewById(R.id.attr)).setText(text);
+                            attr_view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    try {
+                                        hr_ll.setSelectedView(view);
+                                        filter(hr_ll, remainingCombinations, attr);
+
+
+                                    } catch (JSONException e) {
+                                        Toast.makeText(context, "err", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                            hr_ll.addView(attr_view);
+                            attrlist.add(text);
+
+                        }
+                    }
+                }
+            }
+    }
+
+
+    }
+    private void createAttributeCategories(LinearLayout attr_parent,JSONArray variations) throws JSONException{
+
         for (int j = 0; j < attrNames.length(); j++) {
             String attr=attrNames.getString(j);
             if(!attr.toLowerCase().equals("qty")){
@@ -112,25 +220,20 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
                 TextView attr_name = view.findViewById(R.id.attr_name);
                 VariationOptionsLL hr_ll = view.findViewById(R.id.attrs);
                 hr_ll.setTag(attr);
+                int id = hr_ll.getId()+j;
+                hr_ll.setId(id);
                 attr_name.setText("select "+attr);
                 attr_name.setAllCaps(true);
+                Log.w(APP_IDENT,hr_ll.getId()+"oo");
+                holders.add(id);
 //                        add actual attrs
 
                 attr_parent.addView(view);
-//                keep track of attibutes already added
-                ArrayList<String> attrlist = new ArrayList<String>();
-                for (int i = 0; i < variations.length(); i++) {
-                    JSONObject variation = variations.getJSONObject(i);
-                    String text = variation.getString(attr);
-                    if(!attrlist.contains(text)) {
+
+                loadCategoryOptions(hr_ll,variations,attr,false);
 
 
-                        View attr_view = LayoutInflater.from(context).inflate(R.layout.option, hr_ll, false);
-                        ((TextView) attr_view.findViewById(R.id.attr)).setText(text);
-                        hr_ll.addView(attr_view);
-                        attrlist.add(text);
-                    }
-                }
+
             }
 
 
@@ -144,13 +247,13 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
             JSONObject attributes = new JSONObject(data.get("attributes"));
             JSONArray variations = attributes.getJSONArray("variations");
-            JSONArray attrNames = attributes.getJSONArray("attrs");
-            createAttributeCategories(attrNames,attr_parent,variations);
+            attrNames = attributes.getJSONArray("attrs");
+            createAttributeCategories(attr_parent,variations);
 
 
-            Log.w(Config.APP_IDENT, data.toString());
+            Log.w(APP_IDENT, data.toString());
         }catch (JSONException e){
-            Log.w(Config.APP_IDENT, e.toString());
+            Log.w(APP_IDENT, e.toString());
         }
     }
 
@@ -180,9 +283,9 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
                     ViewGroup mine = (ViewGroup) view.getRootView();
                     LayoutInflater layoutInflater = LayoutInflater.from(context);
-                    Log.w(Config.APP_IDENT,mine.getChildCount()+"kk");
+                    Log.w(APP_IDENT,mine.getChildCount()+"kk");
 
-                    View cart= layoutInflater.inflate(R.layout.add_cart_options,null,false);
+                    cart= layoutInflater.inflate(R.layout.add_cart_options,null,false);
                     if(mine.getChildCount()==3) {
                         CircleImageView circleImageView = cart.findViewById(R.id.product_img);
                         circleImageView.setImageDrawable(imageView.getDrawable());
@@ -191,11 +294,14 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
 
 //                    load attributes
+                        holders.clear();
+
                         loadAttributes(cart, data);
 
 
 
-                        Log.w(Config.APP_IDENT, mine.toString());
+
+                        Log.w(APP_IDENT, mine.toString());
                     }
                 }
             });
@@ -228,7 +334,7 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
             if(view.getId()==add.getId()) {
 //                addToCart
             }else {
-                Log.w(Config.APP_IDENT, "clicked");
+                Log.w(APP_IDENT, "clicked");
 
             }
 
