@@ -45,8 +45,11 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 //    implementation 'com.github.screenableinc:HorinSelect:1.0.2'
     implementation 'com.android.support:palette-v7:28.0.1'
+    implementation 'com.github.nkzawa:socket.io-client:0.6.0'
 
-    // Add the CameraX core dependency implementation
+
+
+// Add the CameraX core dependency implementation
     implementation "androidx.camera:camera-core:${camerax_version}"
 // Add the CameraX Camera2 API interop support dependency
     implementation "androidx.camera:camera-camera2:${camerax_version}"

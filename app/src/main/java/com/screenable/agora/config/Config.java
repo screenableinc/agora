@@ -13,6 +13,7 @@ public class Config {
     public static String barcode_search = address + "barcode_search";
     public static String businessLogo = address + "business/logo";
     public static String businessbanner = address + "business/banner";
+    public static String businessItems = address+"business/products";
     public static String trendingProducts = address + "products/latest";
 
     public static String discoverProducts = address + "products/discover";

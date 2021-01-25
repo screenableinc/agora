@@ -129,7 +129,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/drawerheader"
+
+        app:menu="@menu/activity_main_drawer"
+
         android:fitsSystemWindows="true" />
 
 

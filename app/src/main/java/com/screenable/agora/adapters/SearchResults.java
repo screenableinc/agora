@@ -51,13 +51,17 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
     ArrayList <Integer> holders = new ArrayList<>();
     JSONArray remainingCombinations = new JSONArray();
     JSONArray attrNames;
+//
+    public int size;
 //    here, cart represents the dialogue to select variatnts
     View cart;
     private ArrayList<HashMap<String,String>> selected;
-    public SearchResults(Context context, ArrayList <HashMap<String,String>> items, String which){
+    public SearchResults(Context context, ArrayList <HashMap<String,String>> items, String which, int size){
+//        size refers to the preferred width of the cardview 0 for small one for largee
         this.context = context;
         this.items = items;
         this.which = which;
+        this.size = size;
 
     }
 
@@ -92,7 +96,13 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
     @NonNull
     @Override
     public SearchResults.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product, parent, false);
+        View view;
+        Log.w(APP_IDENT,size +";;;;;;;");
+        if(size==1) {
+            view = LayoutInflater.from(context).inflate(R.layout.product, parent, false);
+        }else {
+            view = LayoutInflater.from(context).inflate(R.layout.product_small, parent, false);
+        }
         return new SearchResults.ViewHolder(view);
     }
 
@@ -252,7 +262,7 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
 
             Log.w(APP_IDENT, data.toString());
-        }catch (JSONException e){
+        }catch (Exception e){
             Log.w(APP_IDENT, e.toString());
         }
     }
@@ -283,7 +293,7 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
 
                     ViewGroup mine = (ViewGroup) view.getRootView();
                     LayoutInflater layoutInflater = LayoutInflater.from(context);
-                    Log.w(APP_IDENT,mine.getChildCount()+"kk");
+                    
 
                     cart= layoutInflater.inflate(R.layout.add_cart_options,null,false);
                     if(mine.getChildCount()==3) {

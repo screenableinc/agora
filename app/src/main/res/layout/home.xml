@@ -37,7 +37,7 @@
                     android:shadowColor="#F8F7F7"
                     android:text="Top Vendors"
                     android:textColor="@color/colorAccent"
-                    android:textSize="21sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -59,7 +59,7 @@
                     android:shadowColor="#F8F7F7"
                     android:text="Trending"
                     android:textColor="@color/colorAccent"
-                    android:textSize="21sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="Discover"
                     android:textColor="@color/colorAccent"
-                    android:textSize="21sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView

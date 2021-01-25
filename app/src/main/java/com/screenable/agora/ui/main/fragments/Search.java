@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.libraries.maps.CameraUpdate;
@@ -36,6 +37,7 @@ import com.screenable.agora.R;
 import com.screenable.agora.adapters.SearchResults;
 import com.screenable.agora.apiaccess.Requests;
 import com.screenable.agora.config.Config;
+import com.screenable.agora.customviews.SpaceItemDecoration;
 import com.screenable.agora.helpers.Helpers;
 
 import org.json.JSONArray;
@@ -171,9 +173,12 @@ public class Search extends Fragment {
     private static void populate(){
         recyclerView.removeAllViews();
 
-        searchResults = new SearchResults(context,results,"");
-        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        searchResults = new SearchResults(context,results,"",0);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
         recyclerView.setAdapter(searchResults);
+        SpaceItemDecoration decoration = new SpaceItemDecoration(16);
+        recyclerView.addItemDecoration(decoration);
     }
 
     private static void pre_indicators(){

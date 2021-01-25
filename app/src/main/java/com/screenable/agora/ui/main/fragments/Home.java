@@ -27,6 +27,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.screenable.agora.MainActivity;
 import com.screenable.agora.R;
@@ -35,6 +36,7 @@ import com.screenable.agora.adapters.TopBrands;
 import com.screenable.agora.adapters.TrendingProducts;
 import com.screenable.agora.apiaccess.Requests;
 import com.screenable.agora.config.Config;
+import com.screenable.agora.customviews.SpaceItemDecoration;
 import com.screenable.agora.helpers.Helpers;
 import com.screenable.agora.ui.main.wrappers.LinearLayoutManagerWrapper;
 
@@ -237,15 +239,17 @@ public class Home extends Fragment {
                 r_view.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 r_view.setAdapter(topBrands);
 
-                trendingProducts = new SearchResults(getContext(), products,"");
+                trendingProducts = new SearchResults(getContext(), products,"", 1);
                 trendingProductsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 trendingProductsRecycler.setAdapter(trendingProducts);
 
-                discover_adapter = new SearchResults(getContext(), discovered,"discover");
+                discover_adapter = new SearchResults(getContext(), discovered,"discover",0);
 
 
-                discover.setLayoutManager(new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false));
+                discover.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                 discover.setAdapter(discover_adapter);
+                SpaceItemDecoration decoration = new SpaceItemDecoration(16);
+                discover.addItemDecoration(decoration);
                 body.getViewTreeObserver()
                         .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                             @Override
