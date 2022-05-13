@@ -16,12 +16,50 @@
             android:title="Cart" />
         <item
             android:id="@+id/wishlist"
-            android:icon="@drawable/ic_baseline_favorite_border_24"
-            android:title="Settings" />
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="Alerts" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/ff"
+            android:icon="@drawable/ic_baseline_mail_outline_24"
+            android:title="Messages" />
+
+        <item
+            android:id="@+id/nav_stores"
+            android:icon="@drawable/ic_baseline_store_24"
+            android:title="Stores" />
+
+
+    </group>
+    <group>
+        <item
+            android:id="@+id/pending"
+            android:icon="@drawable/ic_baseline_access_time_24"
+            android:title="Pending" />
+        <item
+            android:id="@+id/accepted"
+            android:icon="@drawable/ic_baseline_check_box_24"
+            android:title="Accepted" />
+        <item
+            android:id="@+id/rejected"
+            android:icon="@drawable/ic_baseline_cancel_presentation_24"
+            android:title="Rejected" />
+
+
+    </group>
+    <group>
+        <item
+            android:id="@+id/settings"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="Settings" />
+        <item
+            android:id="@+id/help"
+            android:icon="@drawable/ic_baseline_help_outline_24"
+            android:title="Accepted" />
+        <item
+            android:id="@+id/live_help"
+            android:icon="@drawable/ic_baseline_live_help_24"
+
+            android:title="Live Help" />
 
     </group>
 </menu>

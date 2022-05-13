@@ -103,6 +103,26 @@
                             android:layout_height="19dp"
                             android:layout_gravity="center"
                             app:srcCompat="@drawable/ic_shopping_bag_24px" />
+
+                        <FrameLayout
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/count"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:id="@+id/count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="6"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </FrameLayout>
+
                     </FrameLayout>
 
                     <FrameLayout
@@ -128,11 +148,11 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_gravity="center|start"
 
-        app:menu="@menu/activity_main_drawer"
+        android:fitsSystemWindows="true"
 
-        android:fitsSystemWindows="true" />
+        app:menu="@menu/activity_main_drawer" />
 
 
 

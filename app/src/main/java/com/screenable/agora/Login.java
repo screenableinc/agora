@@ -24,11 +24,12 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import static com.screenable.agora.apiaccess.Requests.sendPost;
+
 
 public class Login extends AppCompatActivity {
     Button loginButton;
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,7 @@ public class Login extends AppCompatActivity {
 
     }
     public class Auth extends AsyncTask<String, Integer, String>{
-        boolean success;
+        boolean success=false;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -82,14 +83,13 @@ public class Login extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                JSONObject response = Requests.sendPost(Config.loginLink, strings[0]);
+                JSONObject response = new Requests(getApplicationContext()).sendPost(Config.loginLink, strings[0]);
                 int code = response.getInt("code");
                 if(code==100){
 //                    proceed to home
 //                    first write to sharedPref
                     Helpers.writeToSharedPref(getApplicationContext(),Helpers.Mapify(response.getJSONObject("response").put("loggedIn",true)),Config.userdata_SP_N);
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                    finish();
+                    success=true;
                 }else if (code==403){
                     runOnUiThread(new Runnable() {
                         @Override
@@ -124,6 +124,10 @@ public class Login extends AppCompatActivity {
             super.onPostExecute(s);
             progressBar.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
+            if(success) {
+                startActivity(new Intent(Login.this, MainActivity.class));
+                finish();
+            }
         }
     }
 }

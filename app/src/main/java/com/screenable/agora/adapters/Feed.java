@@ -9,23 +9,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.screenable.agora.R;
 import com.screenable.agora.config.Config;
+import com.screenable.agora.customviews.ProductHolder;
 import com.screenable.agora.helpers.Helpers;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TrendingProducts extends RecyclerView.Adapter<TrendingProducts.ViewHolder> {
+public class Feed extends RecyclerView.Adapter<Feed.ViewHolder> {
     Context context;
     ArrayList<HashMap<String,String>> items;
-    public TrendingProducts(Context context, ArrayList <HashMap<String,String>> items){
+    public Feed(Context context, ArrayList <HashMap<String,String>> items){
         this.context = context;
         this.items = items;
 
@@ -37,12 +35,16 @@ public class TrendingProducts extends RecyclerView.Adapter<TrendingProducts.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrendingProducts.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Feed.ViewHolder holder, int position) {
         String productId = items.get(position).get("productId");
         String productName = items.get(position).get("productName");
         String vendor = items.get(position).get("businessName");
         String price = items.get(position).get("price");
-        holder.imageView.setImageURI(Config.productImages+"?productId="+productId);
+
+//        change this to hashmap or JSON array
+        String[] links={Config.productImages+"?productId="+productId};
+        holder.images.setAdapter(new Products(links,context));
+
 
         holder.name.setText(productName);
         holder.vendor.setText(vendor);
@@ -51,23 +53,24 @@ public class TrendingProducts extends RecyclerView.Adapter<TrendingProducts.View
 
     @NonNull
     @Override
-    public TrendingProducts.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.ll, parent, false);
-        return new TrendingProducts.ViewHolder(view);
+    public Feed.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+        return new Feed.ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name;
         TextView price;
         TextView vendor;
-        SimpleDraweeView imageView;
+        ViewPager2 images;
         ImageView add;
         public ViewHolder(View itemView){
             super(itemView);
-            vendor = itemView.findViewById(R.id.vendor);
-            price = itemView.findViewById(R.id.price);
-            name = itemView.findViewById(R.id.product_name);
-            imageView = itemView.findViewById(R.id.item_image);
+            itemView = (ProductHolder) itemView;
+            vendor = itemView.findViewById(R.id.the_vendor);
+            price = itemView.findViewById(R.id.product_price);
+            name = itemView.findViewById(R.id.productName);
+            images = itemView.findViewById(R.id.pager);
             add = itemView.findViewById(R.id.add_to_cart);
 
 

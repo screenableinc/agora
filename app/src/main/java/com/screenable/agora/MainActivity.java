@@ -4,15 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.OnMapReadyCallback;
-import com.google.android.libraries.maps.SupportMapFragment;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,15 +18,17 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.screenable.agora.adapters.Products;
+import com.screenable.agora.apiaccess.DoInBackground;
+import com.screenable.agora.customviews.ProductHolder;
 import com.screenable.agora.ui.main.activities.Mall;
 import com.screenable.agora.ui.main.fragments.Home;
 import com.screenable.agora.ui.main.fragments.Search;
 import com.screenable.agora.ui.main.fragments.Vision;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -46,14 +44,20 @@ public class MainActivity extends AppCompatActivity{
         mainActivity=this;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-
+        Picasso.setSingletonInstance(
+                new Picasso.Builder(this)
+                        // additional settings
+                        .build());
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 //        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         mViewPager = findViewById(R.id.view_pager);
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
+
         ImageView stores = findViewById(R.id.stores);
+        final TextView cartCount = findViewById(R.id.count);
+        new DoInBackground(getApplicationContext(),cartCount).execute();
         setStoreClickListener(stores);
         EditText search = findViewById(R.id.search);
         DrawerLayout drawerLayout = findViewById(R.id.dra);

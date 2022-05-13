@@ -223,7 +223,7 @@ public class Search extends Fragment {
             String[] params = {"medium","qs"};
             String[] val = {"mobile",strings[0]};
             try {
-                JSONObject request = new Requests().sendGET(Config.search,params,val);
+                JSONObject request = new Requests(context).sendGET(Config.search,params,val);
                 Log.w(Config.APP_IDENT, results.toString());
                 if (request.getInt("code")==200){
                     success=true;
@@ -273,7 +273,7 @@ public class Search extends Fragment {
             String[] params = {"medium","barcode"};
             String[] val = {"mobile",strings[0]};
             try {
-                JSONObject request = new Requests().sendGET(Config.barcode_search,params,val);
+                JSONObject request = new Requests(context).sendGET(Config.barcode_search,params,val);
                 Log.w(Config.APP_IDENT, results.toString());
                 if (request.getInt("code")==200){
                     success=true;

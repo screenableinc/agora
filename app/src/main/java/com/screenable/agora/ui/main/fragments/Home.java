@@ -2,24 +2,16 @@ package com.screenable.agora.ui.main.fragments;
 
 import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AutoCompleteTextView;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,17 +20,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.screenable.agora.MainActivity;
 import com.screenable.agora.R;
+import com.screenable.agora.adapters.Products;
 import com.screenable.agora.adapters.SearchResults;
 import com.screenable.agora.adapters.TopBrands;
-import com.screenable.agora.adapters.TrendingProducts;
 import com.screenable.agora.apiaccess.Requests;
 import com.screenable.agora.config.Config;
 import com.screenable.agora.customviews.SpaceItemDecoration;
 import com.screenable.agora.helpers.Helpers;
-import com.screenable.agora.ui.main.wrappers.LinearLayoutManagerWrapper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,6 +52,7 @@ public class Home extends Fragment {
     ProgressBar loading;
     View error;
     static View indicator;
+    static Context context;
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
@@ -68,8 +60,14 @@ public class Home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
 //        live audio and video broadcasts
+        String[] uris = {"https://picsum.photos/200/300","https://picsum.photos/200/300"};
 
         final View rootView = inflater.inflate(R.layout.home, container, false);
+        context = getActivity();
+        ViewPager2 viewPager = rootView.findViewById(R.id.home);
+
+        viewPager.setAdapter(new Products(uris, getActivity()));
+
 
         r_view = rootView.findViewById(R.id.brand_recycler);
         indicator = rootView.findViewById(R.id.indicator);
@@ -78,12 +76,16 @@ public class Home extends Fragment {
         body = rootView.findViewById(R.id.body);
         loading = rootView.findViewById(R.id.loading);
         error = rootView.findViewById(R.id.error);
+
+
         discover.setNestedScrollingEnabled(false);
+
 //        discover.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
 
         preferences = getActivity().getSharedPreferences(Config.API_access_SP_N, Context.MODE_PRIVATE);
-        new Load().execute();
+//        new Load().execute();
+
 
         return rootView;
 
@@ -98,6 +100,7 @@ public class Home extends Fragment {
     public static class Additional extends AsyncTask<String, Integer, String>{
         String timestamp;
         boolean success;
+
 
         boolean change=false;
         int oldcount;
@@ -122,7 +125,7 @@ public class Home extends Fragment {
 
                 String[] d_vals = {preferences.getString("last_timestamp",timestamp)};
 
-                JSONObject discoverProducts = new Requests().sendGET(Config.discoverProducts, d_params, d_vals);
+                JSONObject discoverProducts = new Requests(context).sendGET(Config.discoverProducts, d_params, d_vals);
 
                 if(discoverProducts.getInt("code")==200){
 //                    proceed
@@ -177,15 +180,15 @@ public class Home extends Fragment {
 //                todo...put these in separate try blocks
                 String[] params = {};
                 String[] vals = {};
-                JSONObject object = new Requests().sendGET(Config.topBrands, params, vals);
-                JSONObject trendingProducts = new Requests().sendGET(Config.trendingProducts, params, vals);
+                JSONObject object = new Requests(context).sendGET(Config.topBrands, params, vals);
+                JSONObject trendingProducts = new Requests(context).sendGET(Config.trendingProducts, params, vals);
 
                 String [] d_params = {"last_timestamp"};
 
 
                 String[] d_vals = {preferences.getString("last_timestamp","00")};
 
-                JSONObject discoverProducts = new Requests().sendGET(Config.discoverProducts, d_params, d_vals);
+                JSONObject discoverProducts = new Requests(context).sendGET(Config.discoverProducts, d_params, d_vals);
 
                 if(object.getInt("code")==200){
 //                    proceed
@@ -205,6 +208,7 @@ public class Home extends Fragment {
                 }
                 if(discoverProducts.getInt("code")==200){
                     toHash(discoverProducts.getJSONArray("response"),discovered);
+
                 }
                 success=true;
 
@@ -213,7 +217,7 @@ public class Home extends Fragment {
                 success = false;
 //
             }catch (Exception e){
-                Log.w(Config.APP_IDENT,e.toString());
+                Log.w(Config.APP_IDENT,e.toString()+"__err here");
             }
             return null;
         }

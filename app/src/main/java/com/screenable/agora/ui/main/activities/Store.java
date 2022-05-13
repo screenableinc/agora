@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class Store extends AppCompatActivity {
     String vendorId;
     ArrayList<HashMap<String, String>> results=new ArrayList<>();
     SearchResults adapter;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class Store extends AppCompatActivity {
         view = findViewById(R.id.products);
         ImageView logo = findViewById(R.id.logo);
         ImageView banner = findViewById(R.id.banner);
+        context=getApplicationContext();
 
 
         vendorId = (String) getIntent().getExtras().get("vendorId");
@@ -63,7 +66,7 @@ public class Store extends AppCompatActivity {
 
             String [] parameter = {"businessId"};String [] value = {vendorId};
             try {
-                JSONObject response = new Requests().sendGET(Config.businessItems, parameter, value);
+                JSONObject response = new Requests(context).sendGET(Config.businessItems, parameter, value);
                 Log.w(Config.APP_IDENT,response.toString());
                 if(response.getInt("code")==200){
                     toHash(response.getJSONArray("response"),results);

@@ -3,27 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/background_light"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
 
-    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
     tools:context=".Login">
 
-    <FrameLayout
-        android:layout_width="166dp"
-        android:layout_height="120dp"
-        android:background="@drawable/loginmajigg">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/convergence"
-            android:text="Login"
-            android:textColor="@android:color/white"
-            android:textSize="36sp" />
-    </FrameLayout>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -38,150 +24,98 @@
         android:layout_height="15dp"
         app:srcCompat="@drawable/ic_word" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:elevation="6dp"
+        android:orientation="vertical"
+        android:padding="22dp">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@color/colorAccent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_login">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:ems="10"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:paddingStart="30dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center|start"
+                app:srcCompat="@drawable/ic_baseline_email_24" />
 
         </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_login">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="30dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center|start"
+                app:srcCompat="@drawable/ic_baseline_lock_24" />
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent"
+
+                android:text="Login"
+                android:textColor="@android:color/background_light"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+
 
         <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/convergence"
-            android:padding="5dp"
-            android:text="Login"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <FrameLayout
+            android:id="@+id/forgot"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@color/colorAccent">
+            android:layout_height="wrap_content"
+            android:text="forgot password?"
+            android:textColor="@color/colorAccent" />
 
-        </FrameLayout>
+
     </LinearLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="9dp"
-        android:background="@drawable/cardbg"
-        android:elevation="30dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:orientation="vertical"
-            android:padding="22dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_bottom_login">
-
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:ems="10"
-                    android:hint="Email Address"
-                    android:inputType="textEmailAddress"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:paddingStart="30dp"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_gravity="center|start"
-                    app:srcCompat="@drawable/ic_baseline_email_24" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_bottom_login">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:ems="10"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:paddingStart="30dp"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_gravity="center|start"
-                    app:srcCompat="@drawable/ic_baseline_lock_24" />
-
-            </FrameLayout>
-
-
-            <TextView
-                android:id="@+id/forgot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="forgot password?"
-                android:textColor="@color/colorAccent" />
-
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/loginbtn"
-            android:elevation="5dp"
-            android:text="Login"
-            android:textColor="@android:color/background_light"
-            android:textSize="12sp" />
-    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

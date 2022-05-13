@@ -5,8 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -87,6 +94,8 @@ public static HashMap<String, String> Mapify(JSONObject jsonObject) throws JSONE
     while (iter.hasNext()) {
         String key = iter.next();String value = jsonObject.get(key).toString();
         map.put(key, value);
+
+
     }
     return map;
 }
@@ -110,15 +119,41 @@ public static HashMap<String, String> Mapify(JSONObject jsonObject) throws JSONE
 
         return result.toString();
     }
+    public static void toggleButtonProgress(AppCompatButton button, ProgressBar progress){
+        if(button.getVisibility()== View.VISIBLE){
+            button.setVisibility(View.GONE);
+            progress.setVisibility(View.VISIBLE);
 
+        }else {
+            button.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.GONE);
+        }
+    }
+    public static void showToast(Context context, String message){
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            //                    alert developer
+            @Override
+            public void run() {
+                Toast.makeText(context,message, Toast.LENGTH_LONG).show();
+            }
+        });
 
+    }
+
+public static String retrieveAccessToken(Context context){
+    SharedPreferences sharedPreferences = context.getSharedPreferences(Config.userdata_SP_N,Context.MODE_PRIVATE);
+    String token = sharedPreferences.getString("accessToken",null);
+    return token;
+}
 public static void writeToSharedPref(Context context, HashMap<String, String> map, String sharedPref){
     SharedPreferences.Editor editor = context.getSharedPreferences(sharedPref,Context.MODE_PRIVATE).edit();
-
+//create kv pair for each in JSON
     for (String i :
             map.keySet()) {
         editor.putString(i,map.get(i));
+        Log.w(Config.APP_IDENT,i+"__done");
     }
+
     editor.commit();
     Activity activity;
 
