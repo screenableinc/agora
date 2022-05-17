@@ -42,7 +42,7 @@ public class Feed extends RecyclerView.Adapter<Feed.ViewHolder> {
         String price = items.get(position).get("price");
 
 //        change this to hashmap or JSON array
-        String[] links={Config.productImages+"?productId="+productId};
+        String[] links={Config.productImages+"?productId="+productId,"klk"};
         holder.images.setAdapter(new Products(links,context));
 
 
@@ -54,7 +54,8 @@ public class Feed extends RecyclerView.Adapter<Feed.ViewHolder> {
     @NonNull
     @Override
     public Feed.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+//        View view = LayoutInflater.from(context).inflate(R.layout.product_item,null,false);
+        View view = (View) new ProductHolder(context,null);
         return new Feed.ViewHolder(view);
     }
 

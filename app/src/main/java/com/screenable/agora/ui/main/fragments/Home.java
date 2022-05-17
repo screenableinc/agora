@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.screenable.agora.R;
+import com.screenable.agora.adapters.Feed;
 import com.screenable.agora.adapters.Products;
 import com.screenable.agora.adapters.SearchResults;
 import com.screenable.agora.adapters.TopBrands;
@@ -43,7 +44,7 @@ public class Home extends Fragment {
     static ArrayList <HashMap<String,String>> discovered = new ArrayList<HashMap<String, String>>();
     TopBrands topBrands;
     SearchResults trendingProducts;
-    static SearchResults discover_adapter;
+    static Feed discover_adapter;
     RecyclerView r_view;
     RecyclerView trendingProductsRecycler;
     RecyclerView discover;
@@ -64,9 +65,9 @@ public class Home extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.home, container, false);
         context = getActivity();
-        ViewPager2 viewPager = rootView.findViewById(R.id.home);
-
-        viewPager.setAdapter(new Products(uris, getActivity()));
+//        ViewPager2 viewPager = rootView.findViewById(R.id.home);
+//
+//        viewPager.setAdapter(new Products(uris, getActivity()));
 
 
         r_view = rootView.findViewById(R.id.brand_recycler);
@@ -84,7 +85,7 @@ public class Home extends Fragment {
 
 
         preferences = getActivity().getSharedPreferences(Config.API_access_SP_N, Context.MODE_PRIVATE);
-//        new Load().execute();
+        new Load().execute();
 
 
         return rootView;
@@ -247,10 +248,10 @@ public class Home extends Fragment {
                 trendingProductsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 trendingProductsRecycler.setAdapter(trendingProducts);
 
-                discover_adapter = new SearchResults(getContext(), discovered,"discover",0);
+//                discover_adapter = new SearchResults(getContext(), discovered,"discover",0);
+                discover_adapter = new Feed(context,discovered);
 
-
-                discover.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                discover.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                 discover.setAdapter(discover_adapter);
                 SpaceItemDecoration decoration = new SpaceItemDecoration(16);
                 discover.addItemDecoration(decoration);
