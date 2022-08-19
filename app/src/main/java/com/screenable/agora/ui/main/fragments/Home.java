@@ -60,8 +60,7 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-//        live audio and video broadcasts
-        String[] uris = {"https://picsum.photos/200/300","https://picsum.photos/200/300"};
+
 
         final View rootView = inflater.inflate(R.layout.home, container, false);
         context = getActivity();
@@ -199,14 +198,14 @@ public class Home extends Fragment {
                 }else {
 //                    TODO
                 }
-                if(trendingProducts.getInt("code")==200){
-//                    proceed
-                    Log.w(Config.APP_IDENT, object.toString());
-                    toHash(trendingProducts.getJSONArray("response"),products);
-
-                }else {
-//                  TODO
-                }
+//                if(trendingProducts.getInt("code")==200){
+////                    proceed
+//                    Log.w(Config.APP_IDENT, object.toString());
+//                    toHash(trendingProducts.getJSONArray("response"),products);
+//
+//                }else {
+////                  TODO
+//                }
                 if(discoverProducts.getInt("code")==200){
                     toHash(discoverProducts.getJSONArray("response"),discovered);
 
@@ -251,10 +250,13 @@ public class Home extends Fragment {
 //                discover_adapter = new SearchResults(getContext(), discovered,"discover",0);
                 discover_adapter = new Feed(context,discovered);
 
-                discover.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+
+//                discover.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                 discover.setAdapter(discover_adapter);
+                discover.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
                 SpaceItemDecoration decoration = new SpaceItemDecoration(16);
-                discover.addItemDecoration(decoration);
+//                discover.addItemDecoration(decoration);
+//                called to update on scroll
                 body.getViewTreeObserver()
                         .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                             @Override

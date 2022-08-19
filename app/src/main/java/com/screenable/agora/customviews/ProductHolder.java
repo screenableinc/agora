@@ -30,12 +30,15 @@ import org.w3c.dom.Text;
 public class ProductHolder extends LinearLayout {
     ViewPager2 viewPager2;
     LinearLayout pagination;
+    ImageView addToCart;
 
-    public ProductHolder(Context context, AttributeSet attributeSet){
+    public ProductHolder(Context context, AttributeSet attributeSet, ViewGroup parent){
         super(context, attributeSet);
-        inflate(context,R.layout.product_item,this);
-        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+
+        inflate(context,R.layout.product_item, this);
+        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         init(context, attributeSet);
+
 
 
 
@@ -63,24 +66,38 @@ public class ProductHolder extends LinearLayout {
 
         viewPager2 = findViewById(R.id.pager);
         pagination = findViewById(R.id.pagination);
+        addToCart = findViewById(R.id.add_to_cart);
         viewPager2.setOffscreenPageLimit(3);
+        rigCounter(viewPager2.getChildCount());
+
 
 
         float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
         viewPager2.setPageTransformer((page, position) -> {
-            Log.w(Config.APP_IDENT,page+"____"+position);
+
             float myOffset = position * -(2 * pageOffset + pageMargin);
+            if(position % 1 == 0){
+                page.setTranslationZ(-1f);
+            }
+
             if (position < -1) {
-                page.setTranslationX(-myOffset);
+                page.setTranslationX(myOffset);
+
+
+
             } else if (position <= 1) {
                 float scaleFactor = Math.max(0.7f, 1 - Math.abs(position - 0.14285715f));
+
                 page.setTranslationX(myOffset);
+
                 page.setScaleY(scaleFactor);
-                page.setAlpha(scaleFactor);
+
+                page.setAlpha(1.0f);
             } else {
                 page.setAlpha(0);
+
                 page.setTranslationX(myOffset);
             }
         });

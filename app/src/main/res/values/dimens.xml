@@ -8,8 +8,8 @@
     <dimen name="margin_bottom_login">20dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-    <dimen name="pageMargin">30dp</dimen>
-    <dimen name="offset">30dp</dimen>
+    <dimen name="pageMargin">18dp</dimen>
+    <dimen name="offset">18dp</dimen>
     <dimen name="pageMarginAndOffset">50dp</dimen>
 
     <dimen name="next_item_visible_width">50dp</dimen>

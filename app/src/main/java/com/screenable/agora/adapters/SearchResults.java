@@ -167,7 +167,7 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
                             try {
                                 hr_ll.setSelectedView(view);
                                 filter(hr_ll, variations, attr);
-                                Log.w(APP_IDENT, "clidked");
+
                             } catch (JSONException e) {
                                 Toast.makeText(context, "err", Toast.LENGTH_LONG).show();
                             }
@@ -298,7 +298,8 @@ public class SearchResults extends RecyclerView.Adapter<SearchResults.ViewHolder
                     cart= layoutInflater.inflate(R.layout.add_cart_options,null,false);
                     if(mine.getChildCount()==3) {
                         CircleImageView circleImageView = cart.findViewById(R.id.product_img);
-                        circleImageView.setImageDrawable(imageView.getDrawable());
+//                        Todo optimize to load low quality image
+
 
                         mine.addView(cart);
 

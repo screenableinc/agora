@@ -18,8 +18,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.screenable.agora.Login;
+import com.screenable.agora.apiaccess.Requests;
 import com.screenable.agora.config.Config;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -99,7 +101,17 @@ public static HashMap<String, String> Mapify(JSONObject jsonObject) throws JSONE
     }
     return map;
 }
+public static ArrayList<String> Listify(JSONArray array) throws Exception{
+    ArrayList<String> listToReturn = new ArrayList<>();
+    for (int i = 0; i < array.length(); i++) {
+        listToReturn.add(array.getString(i));
+    }
+    return listToReturn;
+}
 
+    public static void Log(String msg){
+        Log.w(Config.APP_IDENT,msg);
+    }
     public static String GenQueryString(String[] params, String[] values)
             throws UnsupportedEncodingException {
 
@@ -139,6 +151,7 @@ public static HashMap<String, String> Mapify(JSONObject jsonObject) throws JSONE
         });
 
     }
+
 
 public static String retrieveAccessToken(Context context){
     SharedPreferences sharedPreferences = context.getSharedPreferences(Config.userdata_SP_N,Context.MODE_PRIVATE);

@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable-v24/loginbackground.xml" value="0.105" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/attr_selected_bg.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/count.xml" value="0.156" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/disabled.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/ic_add_business.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/ic_baseline_add_shopping_cart_24.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/drawable/ic_person_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_main.xml" value="0.32926829268292684" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_main.xml" value="0.21365638766519823" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_sign_up_flow.xml" value="0.22" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/activity_test_pager.xml" value="0.11041666666666666" />
@@ -20,11 +24,17 @@
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/fragment_username.xml" value="0.178125" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/fragment_verify.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/home.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/home2.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/lottie.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/option.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/product.xml" value="0.14719202898550723" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/product_holder.xml" value="0.14719202898550723" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/product_item.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/product_v2.xml" value="0.14719202898550723" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/productvariations.xml" value="0.16485507246376813" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/store_highlight.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/variationoptions.xml" value="0.16485507246376813" />
+        <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/layout/vendor.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/menu/main.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/agora/app/src/main/res/xml/security_config.xml" value="0.1" />

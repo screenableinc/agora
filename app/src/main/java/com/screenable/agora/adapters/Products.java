@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.screenable.agora.R;
 import com.screenable.agora.config.Config;
+import com.squareup.picasso.Picasso;
 
 public class Products extends RecyclerView.Adapter<Products.VH>{
     String[] links;
@@ -30,12 +32,14 @@ public class Products extends RecyclerView.Adapter<Products.VH>{
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         parent = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.product_holder,parent, false);
+
         return new VH(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
 //        change data here
+        Picasso.get().load(links[position]).into(holder.productImage);
     }
 
     @Override
@@ -44,9 +48,11 @@ public class Products extends RecyclerView.Adapter<Products.VH>{
     }
 
     protected class VH extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+        ImageView productImage;
         public VH(View view){
             super(view);
+            productImage = view.findViewById(R.id.pager_image);
+
         }
         @Override
         public void onClick(View view) {

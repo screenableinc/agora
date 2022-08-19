@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity{
         mViewPager = findViewById(R.id.view_pager);
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
 
         ImageView stores = findViewById(R.id.stores);
         final TextView cartCount = findViewById(R.id.count);

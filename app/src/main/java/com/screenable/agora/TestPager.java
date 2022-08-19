@@ -21,10 +21,10 @@ public class TestPager extends AppCompatActivity {
         setContentView(R.layout.activity_test_pager);
         String [] links={"as","asd","kl"};
         LinearLayoutCompat parent = findViewById(R.id.parent_layout);
-        ProductHolder holder = new ProductHolder(getApplicationContext(), null);
-        holder.setAdapter(new Products(links, getApplicationContext()));
-        holder.rigCounter(links.length);
-        parent.addView(holder);
+//        ProductHolder holder = new ProductHolder(getApplicationContext(), null);
+//        holder.setAdapter(new Products(links, getApplicationContext()));
+//        holder.rigCounter(links.length);
+//        parent.addView(holder);
         
 
     }

@@ -3,20 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
+    <LinearLayout
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Connection Error"
+            android:textSize="12sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/conn_e" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/body"
-        android:scrollbars="none"
-        android:padding="7dp">
+        android:padding="7dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,43 +57,45 @@
 
             android:orientation="vertical">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/home"
+            <FrameLayout
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="#C51162"
-                android:contentDescription="@string/nav_header_desc"
-                android:visibility="visible"
-                tools:ignore="MissingClass" />
+                android:layout_height="50dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
 
             <LinearLayout
-                android:id="@+id/top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                android:orientation="vertical">
+                android:layout_height="70dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="#F8F7F7"
-                    android:text="Top Vendors"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="6dp"
+                    app:srcCompat="@drawable/ic_add_business" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/brand_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="11dp" />
-
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -79,81 +114,45 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/top"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
                 <TextView
-                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Discover"
+                    android:shadowColor="#F8F7F7"
+                    android:text="Top Vendors"
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/discover"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </androidx.recyclerview.widget.RecyclerView>
-
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/indicator"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/discover"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:visibility="gone">
+                android:layout_height="match_parent"
 
-                <ProgressBar
-                    android:id="@+id/progressBar3"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </FrameLayout>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#C51162"
+                android:contentDescription="@string/nav_header_desc"
+                android:visibility="visible"
+                tools:ignore="MissingClass" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/error"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/conn_e" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Connection Error"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/loading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
 
 
 </FrameLayout>

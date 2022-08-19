@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/dra"
     android:isScrollContainer="false"
+
     android:layout_height="match_parent"
 
     tools:context=".MainActivity">
@@ -105,11 +106,11 @@
                             app:srcCompat="@drawable/ic_shopping_bag_24px" />
 
                         <FrameLayout
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginBottom="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="6dp"
                             android:background="@drawable/count"
                             android:padding="2dp">
 
@@ -120,7 +121,7 @@
                                 android:layout_gravity="center"
                                 android:text="6"
                                 android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </FrameLayout>
 
                     </FrameLayout>
