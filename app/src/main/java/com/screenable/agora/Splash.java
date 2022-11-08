@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.screenable.agora.config.Config;
 import com.screenable.agora.signupflow.SignUp;
+import com.screenable.agora.ui.main.activities.Cart;
 
 public class Splash extends AppCompatActivity {
 
@@ -16,7 +17,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startActivity(new Intent(Splash.this, MainActivity.class));
+        startActivity(new Intent(Splash.this, Cart.class));
 
 //        if(internalAuth()){
 //            startActivity(new Intent(Splash.this, MainActivity.class));

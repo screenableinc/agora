@@ -18,7 +18,9 @@ public class Config {
     public static String businessItems = address+"business/products";
     public static String trendingProducts = address + "products/latest";
     public static String cartItems = address + "users/cart";
+    public static String cart = address + "users/cart/items";
     public static String add_cart = address+"users/cart/add";
+    public static String makeorder = address + "orders/order";
     public static String userVerify = address + "verify";
     public static String variationsLink = address+"products/variations";
 

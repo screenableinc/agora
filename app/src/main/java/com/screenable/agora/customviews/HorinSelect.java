@@ -20,9 +20,13 @@ public class HorinSelect extends LinearLayout {
     TextView text;
     public HorinSelect(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
-        init(context,attributeSet);
+        init(context);
     }
-    private void init(Context context, AttributeSet attributeSet){
+    public HorinSelect(Context context){
+        super(context);
+        init(context);
+    }
+    private void init(Context context){
         inflate(context, R.layout.number_selector,this);
 
         initComponents();
@@ -40,6 +44,9 @@ public class HorinSelect extends LinearLayout {
         String newInt = Integer.toString(getText()+1);
         setText(newInt);
 
+    }
+    public String getCount(){
+        return text.getText().toString();
     }
     private void initComponents(){
         next=findViewById(R.id.next);

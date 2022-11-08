@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.screenable.agora.adapters.Products;
 import com.screenable.agora.apiaccess.DoInBackground;
 import com.screenable.agora.customviews.ProductHolder;
+import com.screenable.agora.ui.main.activities.Cart;
 import com.screenable.agora.ui.main.activities.Mall;
 import com.screenable.agora.ui.main.fragments.Home;
 import com.screenable.agora.ui.main.fragments.Search;
@@ -61,6 +62,14 @@ public class MainActivity extends AppCompatActivity{
         new DoInBackground(getApplicationContext(),cartCount).execute();
         setStoreClickListener(stores);
         EditText search = findViewById(R.id.search);
+        ImageView cart = findViewById(R.id.shopping_cart);
+        
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Cart.class));
+            }
+        });
         DrawerLayout drawerLayout = findViewById(R.id.dra);
         ImageView logo = findViewById(R.id.home_logo);
         logo.setOnClickListener(new View.OnClickListener() {

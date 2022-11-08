@@ -158,6 +158,11 @@ public static String retrieveAccessToken(Context context){
     String token = sharedPreferences.getString("accessToken",null);
     return token;
 }
+public static String getUsername(Context context){
+    SharedPreferences sharedPreferences = context.getSharedPreferences(Config.userdata_SP_N,Context.MODE_PRIVATE);
+    String username = sharedPreferences.getString("username",null);
+    return username;
+}
 public static void writeToSharedPref(Context context, HashMap<String, String> map, String sharedPref){
     SharedPreferences.Editor editor = context.getSharedPreferences(sharedPref,Context.MODE_PRIVATE).edit();
 //create kv pair for each in JSON
