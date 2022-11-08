@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
         setStoreClickListener(stores);
         EditText search = findViewById(R.id.search);
         ImageView cart = findViewById(R.id.shopping_cart);
-        
+//        k
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
